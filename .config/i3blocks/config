@@ -24,27 +24,12 @@ separator_block_width=10
 #urgent=true
 #border=#263238
 
-#[window]
-#command=xtitle -s
-#interval=persist
-#separator=true
-#separator_block_width=45
+[window]
+command=xtitle -s
+interval=persist
+separator=true
+separator_block_width=45
 #border=#ebdbb2
-
-#[volume]
-#label=  
-#command=[[ -z "${BLOCK_BUTTON}" ]] || ( [[ "${BLOCK_BUTTON}" == "1" ]] && ((/usr/bin/pavucontrol -t 3 --name "pavucontrol-bar" || true) && $HOME/scripts/volume_control.py signal) || $HOME/scripts/volume_control.py toggle ); $HOME/scripts/volume_control.py i3blocks
-#interval=5
-#signal=1
-#markup=pango
-#border=#263238
-
-#[brightness]
-#label=  
-#command=printf "%.0f " $(xbacklight -get)
-#interval=10
-#signal=2
-#border=#263238
 
 #[temperature]
 #label= 
@@ -52,20 +37,48 @@ separator_block_width=10
 #interval=5
 #border=#263238
 
-#[wireless]
-#label=  
-#command=[[ -z "$(iwgetid -r)" ]] || echo "$(iwgetid -r) "
-#interval=2
+[cpu]
+label=
+command=mpstat 2 1 | tail -n 1 | awk '$12 ~ /[0-9.]+/ { printf "%3.0f%%", (100 - $12)}'
+interval=1
+
+[mem]
+label=
+command=free | grep Mem | awk '{printf "%3.0f%%", ($3/$2 * 100.0)}'
+interval=1
+
+[wireless]
+label=
+command=[[ -z "$(iwgetid -r)" ]] || echo "$(iwgetid -r)"
+interval=2
 #border=#263238
 
-#[battery]
-#command=$HOME/scripts/battery.sh
-#interval=10
+[brightness]
+label=
+command=printf "%.0f" $(xbacklight -get)
+interval=10
+signal=2
+#border=#263238
+
+[battery]
+#label=
+#command=acpi -b | cut -d, -f2 | tr -d "[:blank:]"
+command=sh ~/.i3scripts/battery.sh
+interval=10
+#border=#263238
+
+[volume]
+#label=
+#command=amixer sget Master | grep 'Right:' | awk -F'[][]' '{ print $2 }'
+command=sh ~/.i3scripts/volume.sh
+interval=5
+signal=1
+#markup=pango
 #border=#263238
 
 [time]
-label=  
-command=echo "`date +'%a %d %b'` <b>`date +'%T'`</b> "; [[ -z "${BLOCK_BUTTON}" ]] || gsimplecal &
+label=
+command=echo "`date +'%a %d.%m.%Y'` <b>`date +'%T'`</b> "
 interval=1
 markup=pango
 #border=#263238

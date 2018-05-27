@@ -1,5 +1,5 @@
 ! rofi
-rofi.modi: run
+rofi.modi: window,run
 rofi.font: Hack 10
 rofi.width: 50
 rofi.lines: 5
