@@ -1,5 +1,5 @@
 # i3 Material desktop
-This setup came from r/unixporn setup I randomly find. It is simplified and some of the files should be better formatted and organized.
+This setup came from r/unixporn setup I randomly found. It is simplified and some of the files should be formatted and organized better, but who cares anyway.
 
 [Reddit](https://www.reddit.com/r/unixporn/comments/4qa0jm/i3gaps_finally_finished_my_setup/)  
 [Github](https://github.com/Carwyndalrymple/dotfiles)
